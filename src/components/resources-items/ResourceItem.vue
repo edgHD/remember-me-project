@@ -1,9 +1,10 @@
 <template>
     <ul>
         <base-card v-for="item in items" :key="item.id">
-            <h3>{{ item.title }}&emsp;<button class="delete-item"
-                    @click="this.$emit('delete-item', item.id)">🗑️</button>
-            </h3>
+            <div class="title">
+                <h3>{{ item.title }}</h3>
+                <button class="delete-item" @click="this.$emit('delete-item', item.id)">🗑️</button>
+            </div>
             <p>{{ item.description }}</p>
             <a :href="item.link">View Resource</a>
         </base-card>
@@ -19,13 +20,24 @@ export default {
 
 <style scoped>
 ul {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
     list-style-type: none;
     padding: 0;
+    gap: 16px;
     margin: 0 25px;
 }
 
-h3 {
+.title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     margin: 0 0 8px;
+}
+
+h3 {
+    margin: 0;
     font-size: 1.5rem;
     color: #444;
 }
@@ -34,6 +46,7 @@ h3 {
     background-color: #333;
     cursor: pointer;
     font-size: 1rem;
+    text-align: end;
     transition: background-color 0.2s ease-in-out;
 }
 

@@ -1,7 +1,5 @@
 <template>
-  <header class="main-title">
-    <h1>Remember Me</h1>
-  </header>
+  <the-header title="Remember Me"></the-header>
   <section>
     <ResourceItem :items="storedResources" @delete-item="deleteResource" />
   </section>
@@ -9,9 +7,12 @@
 
 <script>
 import ResourceItem from './components/resources-items/ResourceItem.vue'
+import TheHeader from './components/layouts/TheHeader.vue'
+
 export default {
   components: {
     ResourceItem,
+    TheHeader,
   },
   data() {
     return {
@@ -48,15 +49,5 @@ export default {
 
 body {
   margin: 0;
-}
-
-.main-title {
-  text-align: center;
-  color: #333;
-  margin: 0;
-  padding: 16px;
-  background-color: #ffce8e;
-  border: 1px solid #ddd;
-  border-radius: 0 0 25px 25px;
 }
 </style>
