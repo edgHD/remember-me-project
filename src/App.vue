@@ -1,5 +1,6 @@
 <template>
-  <the-header title="Remember Me"></the-header>
+  <TheHeader :title="'Remember Me'" :hover-color="headerHoverColor" />
+  <TheNavbar @hover-color="setHeaderHoverColor" />
   <section>
     <ResourceItem :items="storedResources" @delete-item="deleteResource" />
   </section>
@@ -8,11 +9,13 @@
 <script>
 import ResourceItem from './components/resources-items/ResourceItem.vue'
 import TheHeader from './components/layouts/TheHeader.vue'
+import TheNavbar from './components/layouts/TheNavBar.vue'
 
 export default {
   components: {
     ResourceItem,
     TheHeader,
+    TheNavbar,
   },
   data() {
     return {
@@ -30,6 +33,7 @@ export default {
           link: 'https://crunchyroll.com',
         },
       ],
+      headerHoverColor: '', // Track the hover color for the header
     }
   },
   methods: {
@@ -37,6 +41,9 @@ export default {
       this.storedResources = this.storedResources.filter(
         (resource) => resource.id !== id
       )
+    },
+    setHeaderHoverColor(color) {
+      this.headerHoverColor = color
     },
   },
 }
