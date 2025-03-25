@@ -3,17 +3,20 @@
   <TheNavbar @hover-color="setHeaderHoverColor" />
   <section>
     <ResourceItem :items="storedResources" @delete-item="deleteResource" />
+    <AddResource @add-resource="postResource" />
   </section>
 </template>
 
 <script>
-import ResourceItem from './components/resources-items/ResourceItem.vue'
+import ResourceItem from './components/learning-resources/ResourceItem.vue'
+import AddResource from './components/learning-resources/AddResource.vue'
 import TheHeader from './components/layouts/TheHeader.vue'
-import TheNavbar from './components/layouts/TheNavBar.vue'
+import TheNavbar from './components/layouts/TheNavbar.vue'
 
 export default {
   components: {
     ResourceItem,
+    AddResource,
     TheHeader,
     TheNavbar,
   },
@@ -37,6 +40,9 @@ export default {
     }
   },
   methods: {
+    postResource(resource) {
+      this.storedResources.push(resource)
+    },
     deleteResource(id) {
       this.storedResources = this.storedResources.filter(
         (resource) => resource.id !== id
