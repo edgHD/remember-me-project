@@ -1,12 +1,12 @@
 <template>
     <ul>
-        <li v-for="item in items" :key="item.id">
+        <base-card v-for="item in items" :key="item.id">
             <h3>{{ item.title }}&emsp;<button class="delete-item"
                     @click="this.$emit('delete-item', item.id)">🗑️</button>
             </h3>
             <p>{{ item.description }}</p>
             <a :href="item.link">View Resource</a>
-        </li>
+        </base-card>
     </ul>
 </template>
 
@@ -22,14 +22,6 @@ ul {
     list-style-type: none;
     padding: 0;
     margin: 0 25px;
-}
-
-li {
-    margin: 16px 0;
-    padding: 16px;
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
-    border-radius: 8px;
 }
 
 h3 {
