@@ -41,9 +41,13 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 * {
   font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+  margin: 0;
 }
 
 .main-title {
@@ -53,6 +57,6 @@ export default {
   padding: 16px;
   background-color: #ffce8e;
   border: 1px solid #ddd;
-  border-radius: 8px;
+  border-radius: 0 0 25px 25px;
 }
 </style>
