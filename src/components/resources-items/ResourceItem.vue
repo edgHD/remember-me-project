@@ -1,7 +1,9 @@
 <template>
     <ul>
         <li v-for="item in items" :key="item.id">
-            <h3>{{ item.title }}</h3>
+            <h3>{{ item.title }}&emsp;<button class="delete-item"
+                    @click="this.$emit('delete-item', item.id)">🗑️</button>
+            </h3>
             <p>{{ item.description }}</p>
             <a :href="item.link">View Resource</a>
         </li>
@@ -11,14 +13,11 @@
 <script>
 export default {
     props: ['items'],
+    emits: ['delete-item'],
 }
 </script>
 
 <style scoped>
-* {
-    font-family: Arial, Helvetica, sans-serif;
-}
-
 ul {
     list-style-type: none;
     padding: 0;
@@ -36,7 +35,18 @@ li {
 h3 {
     margin: 0 0 8px;
     font-size: 1.5rem;
-    color: #333;
+    color: #444;
+}
+
+.delete-item {
+    background-color: #333;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.delete-item:hover {
+    background-color: #700000;
 }
 
 p {
