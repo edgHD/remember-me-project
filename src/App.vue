@@ -2,7 +2,9 @@
   <header class="main-title">
     <h1>Remember Me</h1>
   </header>
-  <ResourceItem :items="storedResources" @delete-item="deleteResource" />
+  <section>
+    <ResourceItem :items="storedResources" @delete-item="deleteResource" />
+  </section>
 </template>
 
 <script>
