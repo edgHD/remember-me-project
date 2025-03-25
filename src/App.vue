@@ -1,12 +1,12 @@
 <template>
-  <ListItem :items="storedResources" />
+  <ResourceItem :items="storedResources" />
 </template>
 
 <script>
-import ListItem from './components/ListItem.vue'
+import ResourceItem from './components/resources-items/ResourceItem.vue'
 export default {
   components: {
-    ListItem,
+    ResourceItem,
   },
   data() {
     return {
