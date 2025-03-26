@@ -1,17 +1,21 @@
 <template>
+    <!-- Teleport dialog to the body -->
     <Teleport to="body">
         <div class="dialog-container">
             <div class="backdrop" @click="$emit('close')"></div>
             <dialog open>
                 <header>
+                    <!-- Slot for custom header content -->
                     <slot name="header">
                         <h2>{{ title }}</h2>
                     </slot>
                 </header>
                 <section>
+                    <!-- Default slot for main content -->
                     <slot></slot>
                 </section>
                 <menu>
+                    <!-- Slot for action buttons -->
                     <slot name="actions">
                         <button @click="$emit('close')">Close</button>
                     </slot>
@@ -26,11 +30,12 @@ export default {
     props: {
         title: {
             type: String,
-            required: false,
+            required: false, // Title is optional since a slot can be used
         },
     },
 }
 </script>
+
 <style scoped>
 .dialog-container {
     position: fixed;

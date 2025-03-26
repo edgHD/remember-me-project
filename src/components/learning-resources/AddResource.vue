@@ -1,14 +1,15 @@
 <template>
-    <base-dialog v-if="InputIsInvalid" title="Invalid Input" @close="InputIsInvalid = false">
-        <template #header :title="'Invalid Input'">
-        </template>
+    <!-- Dialog for invalid input -->
+    <base-dialog v-if="inputIsInvalid" title="Invalid Input" @close="inputIsInvalid = false">
         <template #default>
             <p>Please fill out all fields.</p>
         </template>
         <template #actions>
-            <button @click="InputIsInvalid = false">Close</button>
+            <button @click="inputIsInvalid = false">Close</button>
         </template>
     </base-dialog>
+
+    <!-- Form for adding a resource -->
     <form @submit.prevent="submitResource">
         <label for="title">Title</label>
         <input type="text" id="title" v-model="title" placeholder="Enter the title of the resource" />
@@ -22,35 +23,35 @@
 
 <script>
 export default {
-    inject: ['addResource'],
+    inject: ['addResource'], // Inject the addResource method from the parent
     data() {
         return {
-            InputIsInvalid: false,
+            inputIsInvalid: false, // Tracks if the input is invalid
             title: '',
             description: '',
             link: '',
         }
     },
-    computed: {
-        id() {
-            return this.$uuid()
-        }
-    },
     methods: {
+        // Validate and submit the resource
         submitResource() {
-            if (this.title.trim() !== '' && this.description.trim() !== '' && this.link.trim() !== '') {
+            if (this.title.trim() && this.description.trim() && this.link.trim()) {
                 this.addResource({
-                    id: this.id,
+                    id: this.$uuid(), // Generate a unique ID
                     title: this.title,
                     description: this.description,
                     link: this.link,
-                });
-                this.title = '';
-                this.description = '';
-                this.link = '';
+                })
+                this.resetForm() // Reset the form after submission
             } else {
-                this.InputIsInvalid = true;
+                this.inputIsInvalid = true // Show error dialog if input is invalid
             }
+        },
+        // Reset the form fields
+        resetForm() {
+            this.title = ''
+            this.description = ''
+            this.link = ''
         },
     },
 }

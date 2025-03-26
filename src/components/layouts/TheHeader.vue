@@ -1,4 +1,5 @@
 <template>
+    <!-- Header with dynamic background color -->
     <header :style="{ backgroundColor: bgColor }">
         <h1>{{ title }}</h1>
     </header>
@@ -6,7 +7,16 @@
 
 <script>
 export default {
-    props: ['title', 'bgColor']
+    props: {
+        title: {
+            type: String,
+            required: true, // Title is required for the header
+        },
+        bgColor: {
+            type: String,
+            required: true, // Background color is required for styling
+        },
+    },
 }
 </script>
 
