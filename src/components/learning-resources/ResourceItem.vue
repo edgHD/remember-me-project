@@ -1,12 +1,15 @@
 <template>
     <ul>
-        <base-card v-for="item in items" :key="item.id">
+        <base-card v-if="items.length > 0" v-for="item in items" :key="item.id">
             <div class="title">
                 <h3>{{ item.title }}</h3>
                 <button class="delete-item" @click="this.$emit('delete-item', item.id)">🗑️</button>
             </div>
             <p>{{ item.description }}</p>
             <a :href="item.link">View Resource</a>
+        </base-card>
+        <base-card v-else class="empty">
+            <p>No resources found.</p>
         </base-card>
     </ul>
 </template>
@@ -58,6 +61,11 @@ p {
     margin: 0 0 12px;
     font-size: 1rem;
     color: #666;
+}
+
+.empty p {
+    text-align: center;
+    user-select: none;
 }
 
 a {

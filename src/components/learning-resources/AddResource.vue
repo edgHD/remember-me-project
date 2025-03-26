@@ -2,7 +2,7 @@
     <!-- Dialog for invalid input -->
     <base-dialog v-if="inputIsInvalid" title="Invalid Input" @close="inputIsInvalid = false">
         <template #default>
-            <p>Please fill out all fields.</p>
+            <p>{{ errorMessage }}</p>
         </template>
         <template #actions>
             <button @click="inputIsInvalid = false">Close</button>
@@ -30,6 +30,7 @@ export default {
     data() {
         return {
             inputIsInvalid: false, // Tracks if the input is invalid
+            errorMessage: '', // Stores the error message for the dialog
             title: '',
             description: '',
             link: '',
@@ -38,17 +39,38 @@ export default {
     methods: {
         // Validate and submit the resource
         submitResource() {
-            if (this.title.trim() && this.description.trim() && this.link.trim()) {
-                this.addResource({
-                    id: this.$uuid(), // Generate a unique ID
-                    title: this.title,
-                    description: this.description,
-                    link: this.link,
-                })
-                this.resetForm() // Reset the form after submission
-            } else {
-                this.inputIsInvalid = true // Show error dialog if input is invalid
+            if (!this.title.trim() || !this.description.trim() || !this.link.trim()) {
+                this.errorMessage = 'Please fill out all fields.' // Error for empty fields
+                this.inputIsInvalid = true
+                return
             }
+
+            if (!this.isValidLink(this.link.trim())) {
+                this.errorMessage = 'Please enter a valid link (e.g., https://example.com).' // Error for invalid link
+                this.inputIsInvalid = true
+                return
+            }
+
+            const formattedLink = this.formatLink(this.link.trim()) // Ensure the link is properly formatted
+            this.addResource({
+                id: this.$uuid(), // Generate a unique ID
+                title: this.title,
+                description: this.description,
+                link: formattedLink,
+            })
+            this.resetForm() // Reset the form after submission
+        },
+        // Check if the link is valid
+        isValidLink(link) {
+            const urlPattern = /^(https?:\/\/)?([\w-]+\.)+[\w-]{2,}(\/.*)?$/i
+            return urlPattern.test(link)
+        },
+        // Format the link to ensure it starts with https://
+        formatLink(link) {
+            if (!link.startsWith('http://') && !link.startsWith('https://')) {
+                return `https://${link}`
+            }
+            return link
         },
         // Reset the form fields
         resetForm() {

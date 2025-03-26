@@ -49,8 +49,8 @@ button {
     bottom: 1px;
     padding: 8px 16px;
     font-size: 1rem;
-    font-weight: bold;
     color: #333;
+    border: 1px solid;
     border-top: none;
     border-radius: 0 0 10px 10px;
     cursor: pointer;
