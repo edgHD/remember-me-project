@@ -3,8 +3,10 @@
   <TheNavbar :active-tab="selectedTab" :color-scheme="colorScheme" @selected-tab="setTab"
     @color-change="updateHeaderColor" />
   <section>
-    <component :is="selectedTab === 'resource-item' ? 'ResourceItem' : 'AddResource'" :items="storedResources"
-      @delete-item="deleteResource" @add-resource="postResource" />
+    <keep-alive>
+      <component :is="selectedTab === 'resource-item' ? 'ResourceItem' : 'AddResource'" :items="storedResources"
+        @delete-item="deleteResource" @add-resource="postResource" />
+    </keep-alive>
   </section>
 </template>
 
@@ -58,6 +60,11 @@ export default {
       return this.selectedTab === 'resource-item'
         ? this.colorSchemes.resources
         : this.colorSchemes.add
+    }
+  },
+  provide() {
+    return {
+      addResource: this.postResource
     }
   },
   methods: {

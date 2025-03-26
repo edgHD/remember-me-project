@@ -1,5 +1,15 @@
 <template>
-    <form @submit.prevent="addResource">
+    <base-dialog v-if="InputIsInvalid" title="Invalid Input" @close="InputIsInvalid = false">
+        <template #header :title="'Invalid Input'">
+        </template>
+        <template #default>
+            <p>Please fill out all fields.</p>
+        </template>
+        <template #actions>
+            <button @click="InputIsInvalid = false">Close</button>
+        </template>
+    </base-dialog>
+    <form @submit.prevent="submitResource">
         <label for="title">Title</label>
         <input type="text" id="title" v-model="title" placeholder="Enter the title of the resource" />
         <label for="description">Description</label>
@@ -12,29 +22,34 @@
 
 <script>
 export default {
-    emits: ['add-resource'],
+    inject: ['addResource'],
     data() {
         return {
-            id: this.$uuid(),
+            InputIsInvalid: false,
             title: '',
             description: '',
             link: '',
         }
     },
+    computed: {
+        id() {
+            return this.$uuid()
+        }
+    },
     methods: {
-        addResource() {
-            if (this.title && this.description && this.link) {
-                this.$emit('add-resource', {
+        submitResource() {
+            if (this.title.trim() !== '' && this.description.trim() !== '' && this.link.trim() !== '') {
+                this.addResource({
                     id: this.id,
                     title: this.title,
                     description: this.description,
                     link: this.link,
-                })
-                this.title = ''
-                this.description = ''
-                this.link = ''
+                });
+                this.title = '';
+                this.description = '';
+                this.link = '';
             } else {
-                alert('Please fill out all fields.')
+                this.InputIsInvalid = true;
             }
         },
     },
