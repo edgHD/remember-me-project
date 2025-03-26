@@ -1,9 +1,10 @@
 <template>
-  <TheHeader :title="'Remember Me'" :hover-color="headerHoverColor" />
-  <TheNavbar @hover-color="setHeaderHoverColor" />
+  <TheHeader :title="'Remember Me'" :bg-color="headerColor" />
+  <TheNavbar :active-tab="selectedTab" :color-scheme="colorScheme" @selected-tab="setTab"
+    @color-change="updateHeaderColor" />
   <section>
-    <ResourceItem :items="storedResources" @delete-item="deleteResource" />
-    <AddResource @add-resource="postResource" />
+    <component :is="selectedTab === 'resource-item' ? 'ResourceItem' : 'AddResource'" :items="storedResources"
+      @delete-item="deleteResource" @add-resource="postResource" />
   </section>
 </template>
 
@@ -22,6 +23,19 @@ export default {
   },
   data() {
     return {
+      colorSchemes: {
+        resources: {
+          bgColor: '#ffce8e',
+          hoverColor: '#ffa939',
+          activeColor: '#ff9100'
+        },
+        add: {
+          bgColor: '#8eaaff',
+          hoverColor: '#3869ff',
+          activeColor: '#003fff'
+        }
+      },
+      selectedTab: 'resource-item',
       storedResources: [
         {
           id: this.$uuid(),
@@ -36,7 +50,14 @@ export default {
           link: 'https://crunchyroll.com',
         },
       ],
-      headerHoverColor: '', // Track the hover color for the header
+      headerColor: '#ffce8e', // Initial color
+    }
+  },
+  computed: {
+    colorScheme() {
+      return this.selectedTab === 'resource-item'
+        ? this.colorSchemes.resources
+        : this.colorSchemes.add
     }
   },
   methods: {
@@ -48,8 +69,14 @@ export default {
         (resource) => resource.id !== id
       )
     },
-    setHeaderHoverColor(color) {
-      this.headerHoverColor = color
+    updateHeaderColor(color) {
+      this.headerColor = color
+    },
+    setTab(tab) {
+      this.selectedTab = tab
+      this.headerColor = tab === 'resource-item'
+        ? this.colorSchemes.resources.bgColor
+        : this.colorSchemes.add.bgColor
     },
   },
 }

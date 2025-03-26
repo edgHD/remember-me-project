@@ -1,11 +1,12 @@
 <template>
-    <button :type="type">
+    <button :type="type" :style="{ backgroundColor: colorScheme?.bgColor }">
         <slot></slot>
     </button>
 </template>
+
 <script>
 export default {
-    props: ['type'],
+    props: ['type', 'colorScheme']
 }
 </script>
 
@@ -17,7 +18,6 @@ button {
     font-size: 1rem;
     font-weight: bold;
     color: #333;
-    background-color: #ffce8e;
     border-top: none;
     border-radius: 0 0 10px 10px;
     cursor: pointer;
@@ -25,10 +25,10 @@ button {
 }
 
 button:hover {
-    background-color: #ffa939;
+    background-color: v-bind('colorScheme?.hoverColor') !important;
 }
 
 button:active {
-    background-color: #ff9100;
+    background-color: v-bind('colorScheme?.activeColor') !important;
 }
 </style>

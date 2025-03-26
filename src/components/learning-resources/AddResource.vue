@@ -46,17 +46,16 @@ form {
     display: flex;
     flex-direction: column;
     gap: 16px;
-    margin: 0 auto;
+    margin: 16px auto;
     padding: 16px;
     max-width: 500px;
     background-color: #f9f9f9;
     border: 1px solid #ddd;
     border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 label {
-    font-size: 1rem;
+    font-size: 1.5rem;
     font-weight: bold;
     color: #444;
 }
@@ -64,6 +63,7 @@ label {
 input,
 textarea {
     padding: 8px;
+    resize: vertical;
     font-size: 1rem;
     border: 1px solid #ccc;
     border-radius: 4px;
