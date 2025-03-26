@@ -72,6 +72,22 @@ export default {
       addResource: this.postResource,
     }
   },
+  mounted() {
+    // Load stored resources from localStorage on app load
+    const savedResources = localStorage.getItem('storedResources')
+    if (savedResources) {
+      this.storedResources = JSON.parse(savedResources)
+    }
+  },
+  watch: {
+    // Watch for changes in storedResources and save to localStorage
+    storedResources: {
+      handler(newResources) {
+        localStorage.setItem('storedResources', JSON.stringify(newResources))
+      },
+      deep: true, // Ensure nested changes are detected
+    },
+  },
   methods: {
     // Add a new resource to the list
     postResource(resource) {

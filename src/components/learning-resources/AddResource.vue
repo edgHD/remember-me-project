@@ -10,15 +10,18 @@
     </base-dialog>
 
     <!-- Form for adding a resource -->
-    <form @submit.prevent="submitResource">
-        <label for="title">Title</label>
-        <input type="text" id="title" v-model="title" placeholder="Enter the title of the resource" />
-        <label for="description">Description</label>
-        <textarea id="description" v-model="description" placeholder="Enter a description of the resource"></textarea>
-        <label for="link">Link</label>
-        <input type="text" id="link" v-model="link" placeholder="Enter the link to the resource" />
-        <button type="submit">Add Resource</button>
-    </form>
+    <div class="container">
+        <form @submit.prevent="submitResource">
+            <label for="title">Title</label>
+            <input type="text" id="title" v-model="title" placeholder="Enter the title of the resource" />
+            <label for="description">Description</label>
+            <textarea id="description" v-model="description"
+                placeholder="Enter a description of the resource"></textarea>
+            <label for="link">Link</label>
+            <input type="text" id="link" v-model="link" placeholder="Enter the link to the resource" />
+            <button type="submit">Add Resource</button>
+        </form>
+    </div>
 </template>
 
 <script>
@@ -58,13 +61,18 @@ export default {
 </script>
 
 <style scoped>
+.container {
+    display: flex;
+    justify-content: center;
+}
+
 form {
     display: flex;
     flex-direction: column;
     gap: 16px;
-    margin: 16px auto;
+    margin: 16px 25px;
     padding: 16px;
-    max-width: 500px;
+    width: 500px;
     background-color: #f9f9f9;
     border: 1px solid #ddd;
     border-radius: 8px;
